@@ -253,6 +253,11 @@ body {
     font-size: 0.9rem;
 }
 
+.color-list li.active {
+  background: var(--card-light);
+  color: black;
+}
+
 .whatsapp-btn {
     display: inline-block;
     padding: 0.75rem 1.5rem;

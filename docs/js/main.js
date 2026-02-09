@@ -1,118 +1,154 @@
-const PRODUCTS = {
-  "HandBag": {
-    name: "Riñonara Femenina",
-    price: "$25.000",
-    description: "Riñonera artesanal de cuero genuino, hecho a mano con atención al detalle. Ideal para uso diario.",
-    colors: "Negro, Negro-Verde, Negro-Arcoiris, Negro-Amarillo, Verde, Arcoiris, Rojo, Amarillo",
-    images: [
-      {
-        full: "assets/products/HandBags/full/HandBag-blackGreen.webp",
-        thumb: "assets/products/HandBags/thumb/HandBag-blackGreen.webp",
-        label: "Riñonara Femenina Negro-Verde"
-      },
-      {
-        full: "assets/products/HandBags/full/HandBag-blackRainbow.webp",
-        thumb: "assets/products/HandBags/thumb/HandBag-blackRainbow.webp",
-        label: "Riñonara Femenina Negro-Arcoiris"
-      },
-      {
-        full: "assets/products/HandBags/full/HandBag-blackYellow.webp",
-        thumb: "assets/products/HandBags/thumb/HandBag-blackYellow.webp",
-        label: "Riñonara Femenina Negro-Amarillo"
-      },
-      {
-        full: "assets/products/HandBags/full/HandBag-green.webp",
-        thumb: "assets/products/HandBags/thumb/HandBag-green.webp",
-        label: "Riñonara Femenina Verde"
-      },
-      {
-        full: "assets/products/HandBags/full/HandBag-rainbow.webp",
-        thumb: "assets/products/HandBags/thumb/HandBag-rainbow.webp",
-        label: "Riñonara Femenina Arcoiris"
-      },
-      {
-        full: "assets/products/HandBags/full/HandBag-red.webp",
-        thumb: "assets/products/HandBags/thumb/HandBag-red.webp",
-        label: "Riñonara Femenina Roja"
-      },
-      {
-        full: "assets/products/HandBags/full/HandBag-yellow.webp",
-        thumb: "assets/products/HandBags/thumb/HandBag-yellow.webp",
-        label: "Riñonara Femenina Amarilla"
-      },
-      {
-        full: "assets/products/HandBags/full/HandBag-black.webp",
-        thumb: "assets/products/HandBags/thumb/HandBag-black.webp",
-        label: "Riñonara Femenina Negra"
-      },
-    ],
-    whatsapp: "https://wa.me/+542964522833"
-  },
-  "FannyPack": {
-    name: "Riñonara Masculina",
-    price: "$20.000",
-    description: "Riñonera artesanal de cuero genuino, hecho a mano con atención al detalle. Ideal para uso diario.",
-    colors: "Negro, Marrón",
-    images: [
-      {
-        full: "assets/products/FannyPacks/full/Fanny-brown.webp",
-        thumb: "assets/products/FannyPacks/thumb/Fanny-brown.webp",
-        label: "Riñonara Masculina Marrón"
-      },
-      {
-        full: "assets/products/FannyPacks/full/Fanny-black.webp",
-        thumb: "assets/products/FannyPacks/thumb/Fanny-black.webp",
-        label: "Riñonara Masculina Negra"
-      },
-    ],
-    whatsapp: "https://wa.me/+542964522833"
-  }
-};
+const SHEET_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRwmBHdvjqSTq6xSAagHoCKXJ6CJ7KOMKM4BJfTO38HdnprkklhYFpS7gEb7fKcW-PGrVVUXdW4YRXQ/pub?output=csv";
+const CACHE_KEY = "cataleya_products";
+const CACHE_TIME = 1000 * 60 * 30; // 30 minutes
+
+function parseCSV(text) {
+    const rows = [];
+    let row = [];
+    let current = "";
+    let insideQuotes = false;
+
+    for (let i = 0; i < text.length; i++) {
+        const char = text[i];
+        const next = text[i + 1];
+
+        if (char === '"' && next === '"') {
+        current += '"';
+        i++;
+        } else if (char === '"') {
+        insideQuotes = !insideQuotes;
+        } else if (char === "," && !insideQuotes) {
+        row.push(current.trim());
+        current = "";
+        } else if (char === "\n" && !insideQuotes) {
+        row.push(current.trim());
+        rows.push(row);
+        row = [];
+        current = "";
+        } else {
+        current += char;
+        }
+    }
+
+    row.push(current.trim());
+    rows.push(row);
+
+    return rows;
+}
+
+
+async function loadProductsFromSheet() {
+    const cached = localStorage.getItem(CACHE_KEY);
+    if (cached) {
+        const { time, data } = JSON.parse(cached);
+        if (Date.now() - time < CACHE_TIME) return data;
+    }
+
+    const res = await fetch(SHEET_URL);
+    const text = await res.text();
+    const parsed = parseCSV(text);
+
+    const headers = parsed.shift();
+    const rows = parsed.map(r =>
+        Object.fromEntries(headers.map((h, i) => [h, r[i]]))
+    );
+
+    const PRODUCTS = buildProducts(rows);
+
+    localStorage.setItem(
+        CACHE_KEY,
+        JSON.stringify({ time: Date.now(), data: PRODUCTS })
+    );
+
+    return PRODUCTS;
+}
 
 const params = new URLSearchParams(window.location.search);
 const productId = params.get("id");
 
-if (!productId || !PRODUCTS[productId]) {
-  console.error("Producto no encontrado");
-} else {
+loadProductsFromSheet().then(PRODUCTS => {
+  if (!productId || !PRODUCTS[productId]) {
+    console.error("Producto no encontrado");
+    return;
+  }
+
   loadProduct(PRODUCTS[productId]);
+});
+
+function buildProducts(rows) {
+    const PRODUCTS = {};
+
+    rows
+        .filter(r => r.disponible === "TRUE")
+        .sort((a, b) => Number(a.orden) - Number(b.orden))
+        .forEach(row => {
+        const key = row.product_key;
+
+        if (!PRODUCTS[key]) {
+            PRODUCTS[key] = {
+            key,
+            name: row.nombre,
+            category: row.categoria,
+            price: `$${Number(row.precio).toLocaleString("es-AR")}`,
+            description: row.descripcion || "",
+            colors: [],
+            images: [],
+            };
+        }
+
+        PRODUCTS[key].colors.push(row.color);
+
+        PRODUCTS[key].images.push({
+            color: row.color,
+            full: `assets/products/${key}s/full/${row.image_base}.webp`,
+            thumb: `assets/products/${key}s/thumb/${row.image_base}.webp`
+        });
+        });
+
+    return PRODUCTS;
 }
 
+
 function loadProduct(product) {
+    const mainImage = document.getElementById("mainImage");
+    const thumbnailRow = document.getElementById("thumbnailRow");
+    const colorList = document.getElementById("colorList");
+
     document.getElementById("productName").textContent = product.name;
     document.getElementById("productPrice").textContent = product.price;
     document.getElementById("productDescription").textContent = product.description;
-    document.getElementById("productColors").textContent = product.colors;
     document.getElementById("whatsappBtn").href = product.whatsapp;
 
-    const mainImage = document.getElementById("mainImage");
-    const thumbnailRow = document.getElementById("thumbnailRow");
+    function setActive(index) {
+        mainImage.src = product.images[index].full;
 
-    // Load only ONE large image initially
-    mainImage.src = product.images[0].full;
-    mainImage.alt = product.name;
+        document.querySelectorAll(".thumbnail-row img").forEach(i => i.classList.remove("active"));
+        document.querySelectorAll(".color-list li").forEach(i => i.classList.remove("active"));
+
+        thumbnails[index].classList.add("active");
+        colors[index].classList.add("active");
+    }
 
     thumbnailRow.innerHTML = "";
+    colorList.innerHTML = "";
+
+    const thumbnails = [];
+    const colors = [];
 
     product.images.forEach((img, index) => {
         const thumb = document.createElement("img");
-
         thumb.src = img.thumb;
-        thumb.alt = img.label || product.name;
-        thumb.loading = "lazy";
-
-        if (index === 0) thumb.classList.add("active");
-
-        thumb.addEventListener("click", () => {
-        mainImage.src = img.full;
-
-        document
-            .querySelectorAll("#thumbnailRow img")
-            .forEach(i => i.classList.remove("active"));
-
-        thumb.classList.add("active");
-        });
-
+        thumb.alt = img.color;
+        thumb.onclick = () => setActive(index);
         thumbnailRow.appendChild(thumb);
+        thumbnails.push(thumb);
+
+        const li = document.createElement("li");
+        li.textContent = img.color;
+        li.onclick = () => setActive(index);
+        colorList.appendChild(li);
+        colors.push(li);
     });
+
+    setActive(0);
 }
