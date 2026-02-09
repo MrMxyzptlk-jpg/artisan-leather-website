@@ -4,14 +4,46 @@ const PRODUCTS = {
     price: "$25.000",
     description: "Riñonera artesanal de cuero genuino, hecho a mano con atención al detalle. Ideal para uso diario.",
     images: [
-      "assets/products/HandBags/HandBag-blackGreen.webp",
-      "assets/products/HandBags/HandBag-blackRainbow.webp",
-      "assets/products/HandBags/HandBag-blackYellow.webp",
-      "assets/products/HandBags/HandBag-green.webp",
-      "assets/products/HandBags/HandBag-rainbow.webp",
-      "assets/products/HandBags/HandBag-red.webp",
-      "assets/products/HandBags/HandBag-yellow.webp",
-      "assets/products/HandBags/HandBag-black.webp"
+      {
+        full: "assets/products/HandBags/full/HandBag-blackGreen.webp",
+        thumb: "assets/products/HandBags/thumb/HandBag-blackGreen.webp",
+        label: "Negro / Verde"
+      },
+      {
+        full: "assets/products/HandBags/full/HandBag-blackRainbow.webp",
+        thumb: "assets/products/HandBags/thumb/HandBag-blackRainbow.webp",
+        label: "Negro / Verde"
+      },
+      {
+        full: "assets/products/HandBags/full/HandBag-blackYellow.webp",
+        thumb: "assets/products/HandBags/thumb/HandBag-blackYellow.webp",
+        label: "Negro / Verde"
+      },
+      {
+        full: "assets/products/HandBags/full/HandBag-green.webp",
+        thumb: "assets/products/HandBags/thumb/HandBag-green.webp",
+        label: "Negro / Verde"
+      },
+      {
+        full: "assets/products/HandBags/full/HandBag-rainbow.webp",
+        thumb: "assets/products/HandBags/thumb/HandBag-rainbow.webp",
+        label: "Negro / Verde"
+      },
+      {
+        full: "assets/products/HandBags/full/HandBag-red.webp",
+        thumb: "assets/products/HandBags/thumb/HandBag-red.webp",
+        label: "Negro / Verde"
+      },
+      {
+        full: "assets/products/HandBags/full/HandBag-yellow.webp",
+        thumb: "assets/products/HandBags/thumb/HandBag-yellow.webp",
+        label: "Negro / Verde"
+      },
+      {
+        full: "assets/products/HandBags/full/HandBag-black.webp",
+        thumb: "assets/products/HandBags/thumb/HandBag-black.webp",
+        label: "Negro / Verde"
+      },
     ],
     whatsapp: "https://wa.me/2964522833"
   },
@@ -20,8 +52,16 @@ const PRODUCTS = {
     price: "$20.000",
     description: "Riñonera artesanal de cuero genuino, hecho a mano con atención al detalle. Ideal para uso diario.",
     images: [
-      "assets/products/FannyPacks/Fanny-brown.webp",
-      "assets/products/FannyPacks/Fanny-black_01.webp",
+      {
+        full: "assets/products/FannyPacks/full/Fanny-brown.webp",
+        thumb: "assets/products/FannyPacks/full/Fanny-brown.webp",
+        label: "Negro / Verde"
+      },
+      {
+        full: "assets/products/FannyPacks/full/Fanny-black.webp",
+        thumb: "assets/products/FannyPacks/full/Fanny-black.webp",
+        label: "Negro / Verde"
+      },
     ],
     whatsapp: "https://wa.me/2964522833"
   }
@@ -37,32 +77,39 @@ if (!productId || !PRODUCTS[productId]) {
 }
 
 function loadProduct(product) {
-  document.getElementById("productName").textContent = product.name;
-  document.getElementById("productPrice").textContent = product.price;
-  document.getElementById("productDescription").textContent = product.description;
-  document.getElementById("whatsappBtn").href = product.whatsapp;
+    document.getElementById("productName").textContent = product.name;
+    document.getElementById("productPrice").textContent = product.price;
+    document.getElementById("productDescription").textContent = product.description;
+    document.getElementById("whatsappBtn").href = product.whatsapp;
 
-  const mainImage = document.getElementById("mainImage");
-  const thumbnailRow = document.getElementById("thumbnailRow");
+    const mainImage = document.getElementById("mainImage");
+    const thumbnailRow = document.getElementById("thumbnailRow");
 
-  mainImage.src = product.images[0];
-  thumbnailRow.innerHTML = "";
+    // Load only ONE large image initially
+    mainImage.src = product.images[0].full;
+    mainImage.alt = product.name;
 
-  product.images.forEach((imgSrc, index) => {
-    const thumb = document.createElement("img");
-    thumb.src = imgSrc;
-    thumb.alt = product.name;
-    if (index === 0) thumb.classList.add("active");
+    thumbnailRow.innerHTML = "";
 
-    thumb.addEventListener("click", () => {
-      mainImage.src = imgSrc;
+    product.images.forEach((img, index) => {
+        const thumb = document.createElement("img");
 
-      document.querySelectorAll(".thumbnail-row img")
-        .forEach(img => img.classList.remove("active"));
+        thumb.src = img.thumb;
+        thumb.alt = img.label || product.name;
+        thumb.loading = "lazy";
 
-      thumb.classList.add("active");
+        if (index === 0) thumb.classList.add("active");
+
+        thumb.addEventListener("click", () => {
+        mainImage.src = img.full;
+
+        document
+            .querySelectorAll("#thumbnailRow img")
+            .forEach(i => i.classList.remove("active"));
+
+        thumb.classList.add("active");
+        });
+
+        thumbnailRow.appendChild(thumb);
     });
-
-    thumbnailRow.appendChild(thumb);
-  });
 }
