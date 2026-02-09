@@ -1,3 +1,6 @@
+/* ========================
+   Variables
+======================== */
 :root {
     /* Color Variables for easy theming */
     --primary-bg: #e7ddcc;
@@ -8,7 +11,9 @@
     --accent-brown: hsl(0, 100%, 96%);
 }
 
-/* Reset */
+/* ========================
+   Reset & Base
+======================== */
 * {
     margin: 0;
     padding: 0;
@@ -22,7 +27,9 @@ body {
     background-color: var(--primary-bg);
 }
 
-/* Navigation */
+/* ========================
+   Layout
+======================== */
 .site-header {
     background: var(--primary-bg);
     border-bottom: 1px solid var(--primary-bg);
@@ -48,6 +55,33 @@ body {
     color: var(--text-muted);
 }
 
+.nav a.active {
+    font-weight: bold;
+    border-bottom: 2px solid var(--text-muted);
+}
+
+.site-footer {
+    text-align: center;
+    padding: 1rem;
+    font-size: 0.9rem;
+    color: var(--text-muted);
+}
+
+/* ========================
+   Components
+======================== */
+.btn {
+    display: inline-block;
+    margin-top: 1rem;
+    padding: 0.75rem 1.5rem;
+    background: var(--card-dark);
+    color: white;
+    text-decoration: none;
+}
+
+/* ========================
+   Sections
+======================== */
 /* Hero */
 .hero {
     padding: 4rem 1rem;
@@ -58,15 +92,6 @@ body {
 .hero h2 {
     font-size: 2.5rem;
     margin-bottom: 1rem;
-}
-
-.btn {
-    display: inline-block;
-    margin-top: 1rem;
-    padding: 0.75rem 1.5rem;
-    background: var(--card-dark);
-    color: white;
-    text-decoration: none;
 }
 
 /* Products */
@@ -87,15 +112,6 @@ body {
     height: auto;
     border-radius: 4px;
 }
-
-/* Footer */
-.site-footer {
-    text-align: center;
-    padding: 1rem;
-    font-size: 0.9rem;
-    color: var(--text-muted);
-}
-
 
 /* Catalog */
 .catalog {
@@ -141,6 +157,50 @@ body {
     gap: 3rem;
 }
 
+/*Contact*/
+.contact {
+    max-width: 900px;
+    margin: 4rem auto;
+    padding: 0 1rem;
+    text-align: center;
+}
+
+.contact h2 {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+}
+
+.contact p {
+    margin-bottom: 2rem;
+}
+
+.contact-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+}
+
+.contact-card {
+    border: 1px solid var(--text-muted);
+    background-color: var(--accent-brown);
+    padding: 1.5rem;
+    border-radius: 8px;
+}
+
+.contact-card h3 {
+    margin-bottom: 0.5rem;
+}
+
+.social-link {
+    display: inline-block;
+    margin-top: 0.5rem;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+/* ========================
+   Product Gallery
+======================== */
 .product-images img {
     width: 100%;
     border-radius: 6px;
@@ -159,6 +219,7 @@ body {
     cursor: pointer;
     border-radius: 4px;
     opacity: 0.8;
+    touch-action: manipulation;
 }
 
 .thumbnail-row img:hover {
@@ -211,50 +272,42 @@ body {
     text-decoration: none;
 }
 
-/* Mobile */
+/* ========================
+   Responsive
+======================== */
 @media (max-width: 768px) {
     .product-detail {
         grid-template-columns: 1fr;
     }
-}
+      .nav {
+    flex-direction: column;
+    gap: 0.75rem;
+    }
 
-/*Contact*/
-.contact {
-    max-width: 900px;
-    margin: 4rem auto;
-    padding: 0 1rem;
-    text-align: center;
-}
+    .nav-links {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 1rem;
+        font-size: 0.95rem;
+    }
 
-.contact h2 {
-    font-size: 2rem;
-    margin-bottom: 1rem;
-}
+    .logo {
+        font-size: 1.4rem;
+    }
 
-.contact p {
-    margin-bottom: 2rem;
-}
+    .thumbnail-row {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 0.5rem;
+    }
 
-.contact-cards {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 1.5rem;
-}
+    .thumbnail-row img {
+        width: 100%;
+        height: auto;
+    }
 
-.contact-card {
-    border: 1px solid var(--text-muted);
-    background-color: var(--accent-brown);
-    padding: 1.5rem;
-    border-radius: 8px;
-}
-
-.contact-card h3 {
-    margin-bottom: 0.5rem;
-}
-
-.social-link {
-    display: inline-block;
-    margin-top: 0.5rem;
-    font-weight: bold;
-    text-decoration: none;
+    .product-images img#mainImage {
+        max-width: 100%;
+        height: auto;
+    }
 }

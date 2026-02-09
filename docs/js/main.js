@@ -46,7 +46,7 @@ const PRODUCTS = {
         label: "Riñonara Femenina Negra"
       },
     ],
-    whatsapp: "https://wa.me/2964522833"
+    whatsapp: "https://wa.me/+542964522833"
   },
   "FannyPack": {
     name: "Riñonara Masculina",
@@ -65,7 +65,7 @@ const PRODUCTS = {
         label: "Riñonara Masculina Negra"
       },
     ],
-    whatsapp: "https://wa.me/2964522833"
+    whatsapp: "https://wa.me/+542964522833"
   }
 };
 
