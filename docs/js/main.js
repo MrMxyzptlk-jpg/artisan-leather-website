@@ -58,8 +58,8 @@ const PRODUCTS = {
         label: "Negro / Verde"
       },
       {
-        full: "assets/products/FannyPacks/full/Fanny-black.webp",
-        thumb: "assets/products/FannyPacks/full/Fanny-black.webp",
+        full: "assets/products/FannyPacks/thumb/Fanny-black.webp",
+        thumb: "assets/products/FannyPacks/thumb/Fanny-black.webp",
         label: "Negro / Verde"
       },
     ],
