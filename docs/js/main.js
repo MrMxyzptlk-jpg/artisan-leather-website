@@ -54,11 +54,11 @@ const PRODUCTS = {
     images: [
       {
         full: "assets/products/FannyPacks/full/Fanny-brown.webp",
-        thumb: "assets/products/FannyPacks/full/Fanny-brown.webp",
+        thumb: "assets/products/FannyPacks/thumb/Fanny-brown.webp",
         label: "Negro / Verde"
       },
       {
-        full: "assets/products/FannyPacks/thumb/Fanny-black.webp",
+        full: "assets/products/FannyPacks/full/Fanny-black.webp",
         thumb: "assets/products/FannyPacks/thumb/Fanny-black.webp",
         label: "Negro / Verde"
       },
