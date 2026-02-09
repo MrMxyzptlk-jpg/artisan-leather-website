@@ -1,0 +1,219 @@
+:root {
+    /* Color Variables for easy theming */
+    --primary-bg: #F5F5F5;
+    --card-dark: #2F2F2F;
+    --card-light: #ddbd9b;
+    --text-muted: #2b2b2b;
+    --accent-red: #9B1B30;
+    --accent-brown: #8B5B29;
+}
+
+/* Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+    line-height: 1.6;
+    color: var(--text-muted);
+    background-color: var(--primary-bg);
+}
+
+/* Navigation */
+.site-header {
+    background: var(--primary-bg);
+    border-bottom: 1px solid var(--primary-bg);
+}
+
+.nav {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.nav-links {
+    list-style: none;
+    display: flex;
+    gap: 1.5rem;
+}
+
+.nav a {
+    text-decoration: none;
+    color: var(--text-muted);
+}
+
+/* Hero */
+.hero {
+    padding: 4rem 1rem;
+    text-align: center;
+    background: var(--card-light);
+}
+
+.hero h2 {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+}
+
+.btn {
+    display: inline-block;
+    margin-top: 1rem;
+    padding: 0.75rem 1.5rem;
+    background: var(--card-dark);
+    color: white;
+    text-decoration: none;
+}
+
+/* Products */
+.featured {
+    max-width: 1100px;
+    margin: 3rem auto;
+    padding: 0 1rem;
+}
+
+.product-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 2rem;
+}
+
+.product-card img {
+    width: 100%;
+    height: auto;
+    border-radius: 4px;
+}
+
+/* Footer */
+.site-footer {
+    text-align: center;
+    padding: 2rem;
+    font-size: 0.9rem;
+    color: var(--text-muted);
+}
+
+
+/* Catalog */
+.catalog {
+    max-width: 1100px;
+    margin: 3rem auto;
+    padding: 0 1rem;
+}
+
+.catalog h2 {
+    text-align: center;
+    margin-bottom: 0.5rem;
+}
+
+.catalog-intro {
+    text-align: center;
+    margin-bottom: 2.5rem;
+    color: #555;
+}
+
+.product-card h3 {
+    margin-top: 0.75rem;
+    font-size: 1.1rem;
+}
+
+.product-variant {
+    font-size: 0.9rem;
+    color: #666;
+}
+
+.price {
+    font-weight: bold;
+    margin-top: 0.25rem;
+}
+
+
+/* Product Detail */
+.product-detail {
+    max-width: 1100px;
+    margin: 3rem auto;
+    padding: 0 1rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+}
+
+.product-images img {
+    width: 100%;
+    border-radius: 6px;
+}
+
+.thumbnail-row {
+    display: flex;
+    gap: 0.75rem;
+    margin-top: 1rem;
+}
+
+.thumbnail-row img {
+    width: 70px;
+    height: 70px;
+    object-fit: cover;
+    cursor: pointer;
+    border-radius: 4px;
+    opacity: 0.8;
+}
+
+.thumbnail-row img:hover {
+    opacity: 1;
+}
+
+.product-info h2 {
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+}
+
+.product-info .price {
+    font-size: 1.3rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+}
+
+.description {
+    margin-bottom: 1.5rem;
+}
+
+.color-list {
+    list-style: none;
+    padding-left: 0;
+    margin-bottom: 2rem;
+}
+
+.color-list li {
+    display: inline-block;
+    margin-right: 1rem;
+    font-size: 0.9rem;
+}
+
+.whatsapp-btn {
+    display: inline-block;
+    padding: 0.75rem 1.5rem;
+    background-color: var(--text-muted);
+    color: #fff;
+    text-decoration: none;
+    border-radius: 4px;
+}
+
+.thumbnail-row img.active {
+    outline: 2px solid var(--text-muted);
+    opacity: 1;
+}
+
+.product-card a {
+    color: inherit;
+    text-decoration: none;
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+    .product-detail {
+        grid-template-columns: 1fr;
+    }
+}
