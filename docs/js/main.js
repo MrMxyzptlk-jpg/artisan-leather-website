@@ -3,46 +3,47 @@ const PRODUCTS = {
     name: "Riñonara Femenina",
     price: "$25.000",
     description: "Riñonera artesanal de cuero genuino, hecho a mano con atención al detalle. Ideal para uso diario.",
+    colors: "Negro, Negro-Verde, Negro-Arcoiris, Negro-Amarillo, Verde, Arcoiris, Rojo, Amarillo",
     images: [
       {
         full: "assets/products/HandBags/full/HandBag-blackGreen.webp",
         thumb: "assets/products/HandBags/thumb/HandBag-blackGreen.webp",
-        label: "Negro / Verde"
+        label: "Riñonara Femenina Negro-Verde"
       },
       {
         full: "assets/products/HandBags/full/HandBag-blackRainbow.webp",
         thumb: "assets/products/HandBags/thumb/HandBag-blackRainbow.webp",
-        label: "Negro / Verde"
+        label: "Riñonara Femenina Negro-Arcoiris"
       },
       {
         full: "assets/products/HandBags/full/HandBag-blackYellow.webp",
         thumb: "assets/products/HandBags/thumb/HandBag-blackYellow.webp",
-        label: "Negro / Verde"
+        label: "Riñonara Femenina Negro-Amarillo"
       },
       {
         full: "assets/products/HandBags/full/HandBag-green.webp",
         thumb: "assets/products/HandBags/thumb/HandBag-green.webp",
-        label: "Negro / Verde"
+        label: "Riñonara Femenina Verde"
       },
       {
         full: "assets/products/HandBags/full/HandBag-rainbow.webp",
         thumb: "assets/products/HandBags/thumb/HandBag-rainbow.webp",
-        label: "Negro / Verde"
+        label: "Riñonara Femenina Arcoiris"
       },
       {
         full: "assets/products/HandBags/full/HandBag-red.webp",
         thumb: "assets/products/HandBags/thumb/HandBag-red.webp",
-        label: "Negro / Verde"
+        label: "Riñonara Femenina Roja"
       },
       {
         full: "assets/products/HandBags/full/HandBag-yellow.webp",
         thumb: "assets/products/HandBags/thumb/HandBag-yellow.webp",
-        label: "Negro / Verde"
+        label: "Riñonara Femenina Amarilla"
       },
       {
         full: "assets/products/HandBags/full/HandBag-black.webp",
         thumb: "assets/products/HandBags/thumb/HandBag-black.webp",
-        label: "Negro / Verde"
+        label: "Riñonara Femenina Negra"
       },
     ],
     whatsapp: "https://wa.me/2964522833"
@@ -51,16 +52,17 @@ const PRODUCTS = {
     name: "Riñonara Masculina",
     price: "$20.000",
     description: "Riñonera artesanal de cuero genuino, hecho a mano con atención al detalle. Ideal para uso diario.",
+    colors: "Negro, Marrón",
     images: [
       {
         full: "assets/products/FannyPacks/full/Fanny-brown.webp",
         thumb: "assets/products/FannyPacks/thumb/Fanny-brown.webp",
-        label: "Negro / Verde"
+        label: "Riñonara Masculina Marrón"
       },
       {
         full: "assets/products/FannyPacks/full/Fanny-black.webp",
         thumb: "assets/products/FannyPacks/thumb/Fanny-black.webp",
-        label: "Negro / Verde"
+        label: "Riñonara Masculina Negra"
       },
     ],
     whatsapp: "https://wa.me/2964522833"
@@ -80,6 +82,7 @@ function loadProduct(product) {
     document.getElementById("productName").textContent = product.name;
     document.getElementById("productPrice").textContent = product.price;
     document.getElementById("productDescription").textContent = product.description;
+    document.getElementById("productColors").textContent = product.colors;
     document.getElementById("whatsappBtn").href = product.whatsapp;
 
     const mainImage = document.getElementById("mainImage");

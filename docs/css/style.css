@@ -1,6 +1,6 @@
 :root {
     /* Color Variables for easy theming */
-    --primary-bg: #F5F5F5;
+    --primary-bg: #e7ddcc;
     --card-dark: #2F2F2F;
     --card-light: #ddbd9b;
     --text-muted: #2b2b2b;
@@ -91,7 +91,7 @@ body {
 /* Footer */
 .site-footer {
     text-align: center;
-    padding: 2rem;
+    padding: 1rem;
     font-size: 0.9rem;
     color: var(--text-muted);
 }
