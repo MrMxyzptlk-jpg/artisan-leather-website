@@ -20,7 +20,7 @@
     </nav>
 </header>
 
-  <main>
+<main>
     <section class="hero">
         <div class="hero-text">
             <h2>Artículos Artesanales de Cuero</h2>
@@ -28,41 +28,20 @@
             <a href="catalog.html" class="btn">Ver Catalogo</a>
         </div>
     </section>
-
+    
     <section class="featured">
-        <h3>Productos Destacados</h3>
-        <div class="product-grid">
-
-
-            <article class="product-card">
-                <a href="product.html?id=WomenFannyPack">
-                    <img src="assets/products/WomenFannyPacks/full/WomenFannyPack-brown.webp"
-                        alt="Riñonera femenina marrón (pequeña)"
-                        loading="lazy">
-                </a>
-                <h3><a href="product.html?id=WomenFannyPack">Riñonera Femenina (pequeña)</a></h3>
-                <p class="variant">Disponible en varios colores</p>
-                <p class="price">$25.000</p>
-            </article>
-
-            <article class="product-card">
-                <a href="product.html?id=Purse">
-                    <img src="assets/products/Purses/full/Purse-red.webp"
-                        alt="Cartera roja"
-                        loading="lazy">
-                </a>
-                <h3><a href="product.html?id=Purse">Cartera</a></h3>
-                <p class="variant">Disponible en varios colores</p>
-                <p class="price">$60.000</p>
-            </article>
-
-        </div>
+        <h2>Destacados</h2>
+        <div class="product-grid" id="featuredGrid"></div>
     </section>
-  </main>
+</main>
 
-  <footer class="site-footer">
+<footer class="site-footer">
     <p>© 2026 Cataleya — Articulos Artesanales</p>
-  </footer>
+</footer>
+
+<script src="js/data.js" defer></script>
+<script src="js/renderProductCard.js" defer></script>
+<script src="js/index.js" defer></script>
 
 </body>
 </html>
