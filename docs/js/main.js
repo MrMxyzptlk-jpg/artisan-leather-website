@@ -100,8 +100,8 @@ function buildProducts(rows) {
         PRODUCTS[key].images.push({
             color: row.color,
             available: row.disponible === "TRUE",
-            full: `assets/products/${key}s/full/${row.image_base}.webp`,
-            thumb: `assets/products/${key}s/thumb/${row.image_base}.webp`
+            full: `assets/products/${key}s/full/${row.color_key}.webp`,
+            thumb: `assets/products/${key}s/thumb/${row.color_key}.webp`
         });
         });
 

@@ -31,21 +31,25 @@ function parseCSV(text) {
     }
 
     row.push(current.trim());
-        rows.push(row);
-        return rows;
-    }
+    rows.push(row);
+    return rows;
+}
 
-    function buildProducts(rows) {
+function buildProducts(rows) {
     const PRODUCTS = {};
 
     rows
         .sort((a, b) => Number(a.orden) - Number(b.orden))
         .forEach(row => {
-        const key = row.product_key;
+        const productKey = row.product_key;
+        const variantKey = row.variant_key || productKey;
+        const id = `${productKey}__${variantKey}`;
 
-        if (!PRODUCTS[key]) {
-            PRODUCTS[key] = {
-            key,
+        if (!PRODUCTS[id]) {
+            PRODUCTS[id] = {
+            key: id,
+            product_key: productKey,
+            variant_key: variantKey,
             name: row.nombre,
             category: row.categoria,
             price: `$${Number(row.precio).toLocaleString("es-AR")}`,
@@ -59,13 +63,13 @@ function parseCSV(text) {
             };
         }
 
-        PRODUCTS[key].colors.push(row.color);
+        PRODUCTS[id].colors.push(row.color);
 
-        PRODUCTS[key].images.push({
+        PRODUCTS[id].images.push({
             color: row.color,
             available: row.disponible === "TRUE",
-            full: `assets/products/${key}s/full/${row.image_base}.webp`,
-            thumb: `assets/products/${key}s/thumb/${row.image_base}.webp`
+            full: `assets/products/${productKey}/${variantKey}/full/${row.color_key}.webp`,
+            thumb: `assets/products/${productKey}/${variantKey}/thumb/${row.color_key}.webp`
         });
         });
 
