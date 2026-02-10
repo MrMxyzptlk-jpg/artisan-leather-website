@@ -56,11 +56,18 @@ function buildProducts(rows) {
             description: row.detalles || "",
             colors: [],
             images: [],
-            destacado:
-                row.destacado === "TRUE" ||
-                row.destacado === "✓" ||
-                row.destacado === "1"
+            destacado: false,
+            featuredColorKey: null
             };
+        }
+
+        if (
+            row.destacado === "TRUE" ||
+            row.destacado === "✓" ||
+            row.destacado === "1"
+        ) {
+            PRODUCTS[id].destacado = true;
+            PRODUCTS[id].featuredColorKey = row.color_key;
         }
 
         PRODUCTS[id].colors.push(row.color);

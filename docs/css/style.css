@@ -158,6 +158,7 @@ h1, h2, h3, .logo {
 
 .product-card {
     background: var(--white);
+    max-width: 500px;
     padding: 15px;
     border-radius: 12px;
     box-shadow: var(--shadow-soft);

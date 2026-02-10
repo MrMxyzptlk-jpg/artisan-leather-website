@@ -1,5 +1,10 @@
 function createProductCard(product) {
-    const firstImage = product.images[0];
+    const firstImage =
+        product.featuredColorKey
+            ? product.images.find(img =>
+                img.full.includes(product.featuredColorKey)
+            ) || product.images[0]
+            : product.images[0];
 
     const card = document.createElement("article");
     card.className = "product-card";
