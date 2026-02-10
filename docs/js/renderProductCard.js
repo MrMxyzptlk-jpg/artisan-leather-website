@@ -8,7 +8,6 @@ function createProductCard(product) {
         <a href="product.html?id=${product.key}">
         <div class="product-image-frame">
             <img src="${firstImage.full}" alt="${product.name}" loading="lazy">
-            ${firstImage.available === false ? `<span class="agotado-badge">AGOTADO</span>` : ``}
         </div>
         </a>
 
@@ -18,6 +17,7 @@ function createProductCard(product) {
         </a>
         </h3>
 
+        ${firstImage.available === false ? '<span class="agotado">AGOTADO</span><br><br>': `<p class="variant">Disponible en varios colores</p>`}
         <p class="price">${product.price}</p>
     `;
 
