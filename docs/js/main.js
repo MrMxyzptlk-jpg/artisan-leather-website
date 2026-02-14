@@ -1,6 +1,6 @@
 const SHEET_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRwmBHdvjqSTq6xSAagHoCKXJ6CJ7KOMKM4BJfTO38HdnprkklhYFpS7gEb7fKcW-PGrVVUXdW4YRXQ/pub?output=csv";
 const CACHE_KEY = "cataleya_products";
-const CACHE_TIME = 1000 //* 60 * 30; // 30 minutes
+const CACHE_TIME = 1000 * 60 * 30; // 30 minutes
 
 function parseCSV(text) {
     const rows = [];
@@ -142,9 +142,9 @@ function loadProduct(product) {
         thumb.src = img.thumb;
         thumb.alt = img.color;
         thumb.onclick = () => setActive(index);
-        
+
         if (!img.available) thumb.classList.add("agotado-thumb");
-        
+
         thumbnailRow.appendChild(thumb);
         thumbnails.push(thumb);
 
@@ -152,7 +152,7 @@ function loadProduct(product) {
         li.textContent = img.color;
 
         if (!img.available) li.classList.add("agotado-color");
-    
+
         li.onclick = () => setActive(index);
         colorList.appendChild(li);
         colors.push(li);

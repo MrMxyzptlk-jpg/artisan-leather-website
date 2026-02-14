@@ -1,6 +1,6 @@
 const SHEET_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRwmBHdvjqSTq6xSAagHoCKXJ6CJ7KOMKM4BJfTO38HdnprkklhYFpS7gEb7fKcW-PGrVVUXdW4YRXQ/pub?output=csv";
 const CACHE_KEY = "cataleya_products";
-const CACHE_TIME = 1000; // adjust later
+const CACHE_TIME = 1000 * 60 * 30; // adjust later
 
 function parseCSV(text) {
     const rows = [];

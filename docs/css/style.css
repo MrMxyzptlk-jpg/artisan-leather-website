@@ -291,7 +291,8 @@ h1, h2, h3, .logo {
 .product-images img {
     width: 100%;
     max-height: 400px;
-    object-fit: contain;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
     border-radius: 12px;
     box-shadow: var(--shadow-soft);
 }
@@ -307,6 +308,7 @@ h1, h2, h3, .logo {
 .thumbnail-row img {
     width: 70px;
     height: 70px;
+    aspect-ratio: 1 / 1;
     object-fit: cover;
     cursor: pointer;
     border-radius: 8px;
@@ -369,6 +371,7 @@ h1, h2, h3, .logo {
     border-color: var(--card-dark);
     color: var(--card-dark);
 }
+
 .whatsapp-btn {
     display: inline-block;
     width: 100%; /* Full width button on mobile */
@@ -415,7 +418,7 @@ h1, h2, h3, .logo {
     .hero h2 {
         font-size: 2rem;
     }
-    
+
     .thumbnail-row {
         display: grid;
         grid-template-columns: repeat(6, 1fr);

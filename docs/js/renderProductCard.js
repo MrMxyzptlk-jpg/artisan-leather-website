@@ -12,7 +12,7 @@ function createProductCard(product) {
     card.innerHTML = `
         <a href="product.html?id=${product.key}">
         <div class="product-image-frame">
-            <img src="${firstImage.full}" alt="${product.name}" loading="lazy">
+            <img src="${firstImage.full}" alt="${product.name}" loading="lazy" decoding="async">
         </div>
         </a>
 

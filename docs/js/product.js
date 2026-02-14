@@ -15,50 +15,71 @@ if (productContainer) {
 }
 
 function loadProduct(product) {
-  const mainImage = document.getElementById("mainImage");
-  const thumbnailRow = document.getElementById("thumbnailRow");
-  const colorList = document.getElementById("colorList");
-  const agotadoBadge = document.getElementById("agotadoBadge");
+    const mainImage = document.getElementById("mainImage");
+    const thumbnailRow = document.getElementById("thumbnailRow");
+    const colorList = document.getElementById("colorList");
+    const agotadoBadge = document.getElementById("agotadoBadge");
+    const whatsappBtn = document.getElementById("whatsappBtn");
+    const whatsappNumber = "542964522833";
 
-  document.getElementById("productName").textContent = product.name;
-  document.getElementById("productPrice").textContent = product.price;
-  document.getElementById("productDescription").textContent = product.description;
+    mainImage.loading = "eager";
+    mainImage.decoding = "async";
 
-  function setActive(index) {
-    const img = product.images[index];
-    mainImage.src = img.full;
+    document.getElementById("productName").textContent = product.name;
+    document.getElementById("productPrice").textContent = product.price;
+    document.getElementById("productDescription").textContent = product.description;
 
-    thumbnails.forEach(t => t.classList.remove("active"));
-    colors.forEach(c => c.classList.remove("active"));
+    function setActive(index) {
+        const img = product.images[index];
+        mainImage.src = img.full;
 
-    thumbnails[index].classList.add("active");
-    colors[index].classList.add("active");
-    agotadoBadge.classList.toggle("hidden", img.available);
-  }
+        thumbnails.forEach(t => t.classList.remove("active"));
+        colors.forEach(c => c.classList.remove("active"));
 
-  thumbnailRow.innerHTML = "";
-  colorList.innerHTML = "";
+        thumbnails[index].classList.add("active");
+        colors[index].classList.add("active");
+        agotadoBadge.classList.toggle("hidden", img.available);
 
-  const thumbnails = [];
-  const colors = [];
+        const productURL = window.location.href;
 
-  product.images.forEach((img, index) => {
-    const thumb = document.createElement("img");
-    thumb.src = img.thumb;
-    thumb.onclick = () => setActive(index);
-    if (!img.available) thumb.classList.add("agotado-thumb");
+        const message = `
+Hola! Me interesa este producto:
+${product.name}
+Color: ${img.color}
+Precio: ${product.price}
+¿Está disponible?
+        `;
 
-    thumbnailRow.appendChild(thumb);
-    thumbnails.push(thumb);
+        const encodedMessage = encodeURIComponent(message);
+        whatsappBtn.href = `https://wa.me/${whatsappNumber}?text=${encodedMessage}`;
 
-    const li = document.createElement("li");
-    li.textContent = img.color;
-    if (!img.available) li.classList.add("agotado-color");
-    li.onclick = () => setActive(index);
+    }
 
-    colorList.appendChild(li);
-    colors.push(li);
-  });
+    thumbnailRow.innerHTML = "";
+    colorList.innerHTML = "";
 
-  setActive(0);
+    const thumbnails = [];
+    const colors = [];
+
+    product.images.forEach((img, index) => {
+        const thumb = document.createElement("img");
+        thumb.src = img.thumb;
+        thumb.loading = "lazy";
+        thumb.decoding = "async";
+        thumb.onclick = () => setActive(index);
+        if (!img.available) thumb.classList.add("agotado-thumb");
+
+        thumbnailRow.appendChild(thumb);
+        thumbnails.push(thumb);
+
+        const li = document.createElement("li");
+        li.textContent = img.color;
+        if (!img.available) li.classList.add("agotado-color");
+        li.onclick = () => setActive(index);
+
+        colorList.appendChild(li);
+        colors.push(li);
+    });
+
+    setActive(0);
 }
