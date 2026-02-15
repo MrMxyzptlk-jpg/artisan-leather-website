@@ -42,13 +42,12 @@ function loadProduct(product) {
 
         const productURL = window.location.href;
 
-        const message = `
-Hola! Me interesa este producto:
+        const message =
+`Hola! Me interesa este producto:
 ${product.name}
 Color: ${img.color}
 Precio: ${product.price}
-¿Está disponible?
-        `;
+¿Está disponible?`;
 
         const encodedMessage = encodeURIComponent(message);
         whatsappBtn.href = `https://wa.me/${whatsappNumber}?text=${encodedMessage}`;
